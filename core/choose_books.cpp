@@ -14,9 +14,11 @@ using namespace std;
 #include <algorithm>
 #include <set>
 
-vector <int> get_books(vector <Library> libs) {
+vector <int> get_books(int D, vector <Library> libs) {
     map<int, vector<Library>> queue;
     for (int i = 0; i < libs.size(); ++i) {
+
+
         if (queue.count(libs[i].t) == 0) {
             queue[libs[i].t] = vector<Library>();
         }
