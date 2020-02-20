@@ -12,6 +12,7 @@ class Library {
     int t;
     int m;
     int n;
+    double key;
     vector<Book> books;
 
     Library() {}
@@ -20,6 +21,7 @@ class Library {
         this->t = t;
         this->m = m;
         this->n = n;
+        this->key=0;
     }
 };
 
