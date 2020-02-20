@@ -1,15 +1,17 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include "Book.h"
 #include "Library.h"
 
 using namespace std;
 
-void read_input (string filename) {
+void read_input (string filename, vector<Book>& books, vector<Library>& libs) {
     int B, L, D;
 
-    cin >> B >> L >> D;
-    vector<Book> books(B);
+    ifstream fin(filename);
+
+    fin >> B >> L >> D;
     
     for (int i = 0; i < B; i++) {
         int book_sc;
@@ -28,8 +30,10 @@ void read_input (string filename) {
         for (int j = 0; j < Ni; j++) {
             int book_id;
             cin >> book_id;
-            lib.books.push_back(Book(book_id));
+            lib.books.push_back(Book(book_id, -1));
         }
+
+        libs.push_back(lib);
     }
 }
 
