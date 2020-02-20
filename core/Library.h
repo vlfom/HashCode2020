@@ -6,8 +6,10 @@
 #define HASHCODE2020_LIBRARY_H
 
 #include "Book.h"
+#include <vector>
 
 class Library {
+public: 
     int id;
     int t;
     int m;
