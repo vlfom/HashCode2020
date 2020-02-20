@@ -45,14 +45,14 @@ void read_input (string filename,  vector<Library>& libs, int& D) {
 void write_output (string filename, vector<Library>& libs) {
     ofstream fout(filename);
 
-    cout << libs.size() << "\n";
+    fout << libs.size() << "\n";
 
     for (int i = 0; i < libs.size(); i++) {
-        cout << libs[i].id << " " << libs[i].books.size() << "\n";
+        fout << libs[i].id << " " << libs[i].books.size() << "\n";
         for (int j = 0; j < libs[i].books.size(); j++) {
-            cout << libs[i].books[j].id << " ";
+            fout << libs[i].books[j].id << " ";
         }
-        cout<<"\n";
+        fout<<"\n";
     }
 }
 
