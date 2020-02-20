@@ -10,9 +10,9 @@
 
 using namespace std;
 
-void read_input (string filename,  vector<Library>& libs, int& D) {
-    int B, L;
+int B, L, D;
 
+void read_input (string filename,  vector<Library>& libs) {
     ifstream fin(filename);
 
     unordered_map<int, int> books;
@@ -58,11 +58,10 @@ void write_output (string filename, vector<Library>& libs) {
 
 int main(int argc, char **argv) {
     vector<Library> libs;
-    int D;
 
-    read_input(argv[1], libs, D);
+    read_input(argv[1], libs);
 
-    vector<Library> res = get_books(D, get_lib_order(D, libs));
+    vector<Library> res = get_books(D, get_lib_order_D(D, libs));
 
     write_output(argv[2], res);
 

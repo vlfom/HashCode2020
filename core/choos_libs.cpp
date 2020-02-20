@@ -1,5 +1,12 @@
 #include "choos_libs.h"
 
+#include <iostream>
+#include <set>
+#include <map>
+#include <algorithm>
+
+using namespace std;
+
 bool cmp(Library x, Library y) {
     return x.key < y.key;
 }
@@ -18,52 +25,38 @@ vector < int > libs_with_book[N];
 vector < int > ids;
 map<int, Library> libs;
 
-struct Lib {
-public:
-    int lib_id;
-    int priority;
-};
-
-bool operator ==(const LibLib& a, const LibLib& b) {
-    return a.priority == b.priority && a.lib_id == b.lib_id;
-}
-
-bool operator <(const LibLib& a, const LibLib& b) {
-    return a.priority > b.priority || a.priority == b.priority && a.lib_id > b.lid_id;
-}
-
-bool comp(LibLib a, LibLib b) {
-    return a.priority > b.priority;
-}
-
-vector < Library > get_lib_order_D(int D, int B, vector < Library > libs_, int seed=123) {
-    libs = libs_;
-
-    set<Lib> q;
+vector < Library > get_lib_order_D(int D, vector < Library > libs_, int seed) {
+    set<pair<int,int> > q;
     for (int i = 0; i < libs_.size(); i++) {
-        Lib temp;
-        temp.lib_id = libs_[i].id;
-        libs[libs_[i].id] = libs_[i];
-        temp.priority = 0;
+        int id = libs_[i].id;
+        double priority = 0;
         for (int j = 0; j < libs_[i].books.size(); j++) {
-            libs_with_book[libs_[i].books[j].id].push_back(libs_[i].id);
-            temp.priority += 1;
+            libs_with_book[libs_[i].books[j].id].push_back(id);
+            priority += 1;
         }
-        q.insert(temp);
+        libs_[i].key = -priority;
+        libs[id] = libs_[i];
+        q.insert(make_pair(-priority,id));
     }
 
     vector<Library> res;
     int current_time = 0;
     while (!q.empty()) {
-        Lib cur = *q.begin();
+        pair<int,int> cur = *q.begin();
         q.erase(q.begin());
-        for(int i = 0; i < libs[cur.lib_id].books.size(); ++i) {
-            Book b = libs[cur.lib_id].books[i];
-            for (int j = 0; j < libs_with_book[b.id]; j++) {
-                Lib temp = libs[libs_with_book[b.id][j]];
-                q.erase(temp);
-                temp.priority -= 1;
-                q.insrt(temp);
+//        cout << cur.first << " " << cur.second << " " << q.size() << endl;
+        int lib_id = cur.second;
+        res.push_back(libs[lib_id]);
+        libs.erase(lib_id);
+        for(int i = 0; i < libs[lib_id].books.size(); ++i) {
+            Book b = libs[lib_id].books[i];
+            for (int j = 0; j < libs_with_book[b.id].size(); j++) {
+                if (libs.count(libs_with_book[b.id][j]) > 0) {
+                    Library temp = libs[libs_with_book[b.id][j]];
+                    q.erase(make_pair(temp.key, temp.id));
+                    temp.key += 1;
+                    q.insert(make_pair(temp.key, temp.id));
+                }
             }
         }
     }
