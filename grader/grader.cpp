@@ -69,6 +69,41 @@ int main(int argc, char** argv) {
     }
     fin2.close();
     cout << totscore << endl;
+  } else {
+    cout << fixed << setprecision(1);
+    cout << "Number of books: " << b << endl;
+    cout << "Number of libraries: " << l << endl;
+    cout << "Days: " << d << endl;
+    long double avg_signup = 0.0, avg_books = 0.0, avg_score = 0.0;
+    long double dev_signup = 0.0, dev_books = 0.0, dev_score = 0.0;
+    int min_signup = 100001, min_books = 100001, min_score = 100001,
+      max_signup = 0, max_books = 0, max_score = 0;
+    for (int i = 0; i < l; i++) {
+      avg_signup += signup[i]; min_signup = min(min_signup, signup[i]);
+        max_signup = max(max_signup, signup[i]);
+      avg_books += libraries[i].size(); min_books = min(min_books, (int) libraries[i].size());
+        max_books = max(max_books, (int) libraries[i].size());
+    }
+    avg_signup /= l;
+    avg_books /= l;
+    for (int i = 0; i < l; i++) {
+      dev_signup += (signup[i] - avg_signup) * (signup[i] - avg_signup);
+      dev_books += (libraries[i].size() - avg_books) * (libraries[i].size() - avg_books);
+    }
+    dev_signup /= l; dev_signup = sqrt(dev_signup);
+    dev_books /= l; dev_books = sqrt(dev_books);
+    for (int i = 0; i < b; i++) {
+      avg_score += score[i]; min_score = min(min_score, score[i]);
+        max_score = max(max_score, score[i]);
+    }
+    avg_score /= b;
+    for (int i = 0; i < b; i++) {
+      dev_score += (score[i] - avg_score) * (score[i] - avg_score);
+    }
+    dev_score /= b; dev_score = sqrt(dev_score);
+    cout << "Average signup time: " << avg_signup << " (min: " << min_signup << ", max: " << max_signup << ", stddev: " << dev_signup << ")" << endl;
+    cout << "Average number of books per library: " << avg_books << " (min: " << min_books << ", max: " << max_books << ", stddev: " << dev_books << ")" << endl;
+    cout << "Average book score: " << avg_score << " (min: " << min_score << ", max: " << max_score << ", stddev: " << dev_score << ")" << endl;
   }
   return 0;
 }
