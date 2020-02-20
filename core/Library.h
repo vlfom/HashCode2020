@@ -6,6 +6,7 @@
 #define HASHCODE2020_LIBRARY_H
 
 #include "Book.h"
+#include <vector>
 
 class Library {
 public: 
@@ -18,7 +19,8 @@ public:
 
     Library() {}
 
-    Library(int t, int m, int n) {
+    Library(int id, int t, int m, int n) {
+        this->id = id;
         this->t = t;
         this->m = m;
         this->n = n;

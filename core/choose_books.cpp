@@ -2,23 +2,13 @@
 // Created by Volodymyr Fomenko on 2020-02-20.
 //
 
-#include "Book.h"
-#include "Library.h"
-
-using namespace std;
-
-#include <iostream>
-#include <vector>
-#include <string>
-#include <map>
-#include <algorithm>
-#include <set>
+#include "choose_books.h"
 
 bool comp(Book a, Book b) {
     return a.score > b.score;
 }
 
-vector <int> get_books(int D, vector <Library> libs) {
+vector <Library> get_books(int D, vector <Library> libs) {
 //    map<int, vector<Library>> queue;
 //    set<pair<int, int>> books;
 //
