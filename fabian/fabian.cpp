@@ -59,6 +59,9 @@ long double calc_score(const unordered_set<int>& booksused, int lib, int ctime, 
     if (pushtovec) bookids.push_back(ii(bscores[i].second, 0));
     if (ctime + signup[lib] + i / booksperday[lib] < d) {
       if (pushtovec) bookids.back().second = 1;
+      // totscore -= bscores[i].first;
+    }
+    if (signup[lib] + i / booksperday[lib] < (d - ctime) * 180 / 100) {
       totscore -= bscores[i].first;
     }
   }
@@ -131,7 +134,8 @@ int main(int argc, char** argv) {
     }
   }
 
-  cout << grade(libs, bks) << endl;
+  int solscore = grade(libs, bks);
+  cout << solscore << endl;
 
   ofstream fout(outfile);
   int cntlibs = 0;
