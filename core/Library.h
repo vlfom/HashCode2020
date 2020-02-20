@@ -8,6 +8,7 @@
 #include "Book.h"
 
 class Library {
+    int id;
     int t;
     int m;
     int n;
