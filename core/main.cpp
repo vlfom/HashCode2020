@@ -1,14 +1,17 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <unordered_map>
+#include <vector>
 #include "Book.h"
 #include "Library.h"
+#include "choos_libs.h"
+#include "choose_books.h"
+
 
 using namespace std;
 
-void read_input (string filename,  vector<Library>& libs) {
-    int B, L, D;
+void read_input (string filename,  vector<Library>& libs, int& D) {
+    int B, L;
 
     ifstream fin(filename);
 
@@ -41,5 +44,9 @@ void read_input (string filename,  vector<Library>& libs) {
 
 int main(int argc, char **argv) {
     vector<Library> libs;
-    read_input(argv[1], libs);
+    int D;
+
+    read_input(argv[1], libs, D);
+
+    vector<Library> res = get_books(D, get_lib_order(D, libs));
 }

@@ -1,5 +1,4 @@
-#include "Book.h"
-#include "Library.h"
+#include "choos_libs.h"
 
 bool cmp(Library x, Library y) {
     return x.key < y.key;
