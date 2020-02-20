@@ -4,3 +4,4 @@ Days: 30001
 Average signup time: 2.0 (min: 2, max: 2, stddev: 0.0)
 Average number of books per library: 7.4 (min: 1, max: 14, stddev: 1.8)
 Average book score: 65.0 (min: 65, max: 65, stddev: 0.0)
+avg book score * book number: 5109000.0

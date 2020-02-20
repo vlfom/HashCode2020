@@ -104,6 +104,7 @@ int main(int argc, char** argv) {
     cout << "Average signup time: " << avg_signup << " (min: " << min_signup << ", max: " << max_signup << ", stddev: " << dev_signup << ")" << endl;
     cout << "Average number of books per library: " << avg_books << " (min: " << min_books << ", max: " << max_books << ", stddev: " << dev_books << ")" << endl;
     cout << "Average book score: " << avg_score << " (min: " << min_score << ", max: " << max_score << ", stddev: " << dev_score << ")" << endl;
+    cout << "avg book score * book number: " << avg_score * b << endl;
   }
   return 0;
 }
