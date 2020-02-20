@@ -1,9 +1,9 @@
-Number of books: 100000
+Number of books: 100000, but only 99264 do actually appear in some library
 Number of libraries: 1000
 Days: 200
 Average signup time: 5.4 (min: 1, max: 10, stddev: 2.9)
 Average number of books per library: 491.9 (min: 2, max: 1000, stddev: 286.9)
 Average book score: 125.5 (min: 1, max: 250, stddev: 72.0)
 Average books per day: 1.5 (min: 1, max: 2, stddev: 0.5)
-Average appearance time per book: 4.9 (min: 0, max: 18, stddev: 2.2)
-avg book score * book number: 12548648.0
+Average appearance time per book: 5.0 (min: 1, max: 18, stddev: 2.2)
+Maximum achievable score not greater than: 12457261
