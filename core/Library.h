@@ -6,7 +6,6 @@
 #define HASHCODE2020_LIBRARY_H
 
 #include "Book.h"
-#include <vector>
 
 class Library {
 public: 
@@ -15,7 +14,7 @@ public:
     int m;
     int n;
     double key;
-    vector<Book> books;
+    std::vector<Book> books;
 
     Library() {}
 
