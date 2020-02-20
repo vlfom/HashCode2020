@@ -4,10 +4,12 @@ using namespace std;
 
 int b, l, d, n, id, score[100001], signup[100001], booksperday[100001], a, y, k1, ki;
 bitset<100001> check;
+bitset<100001> checkbooks;
 vector<int> libraries[100001];
 unordered_set<int> librarcont[100001];
 
 int main(int argc, char** argv) {
+  bool grade_mode = true;
   string infile = "input.txt";
   string outfile = "output.txt";
   if (argc >= 2) {
@@ -16,6 +18,8 @@ int main(int argc, char** argv) {
   }
   if (argc >= 3) {
     outfile = argv[2];
+    if (outfile == "analyze")
+      grade_mode = false;
   }
   ifstream fin1(infile);
   fin1 >> b >> l >> d;
@@ -30,34 +34,41 @@ int main(int argc, char** argv) {
     }
   }
   fin1.close();
-  ifstream fin2(outfile);
-  fin2 >> a;
-  int totscore = 0;
-  int ctime = 0;
-  for (int i = 0; i < a; i++) {
-    fin2 >> y >> k1;
-    if (y >= l) {
-      cout << "Error: invalid library id " << y << "." << endl;
-      return 1;
-    }
-    if (check[y]) {
-      cout << "Error: listed library " << y << " twice." << endl;
-      return 1;
-    }
-    check[y] = 1;
-    ctime += signup[y];
-    for (int k = 0; k < k1; k++) {
-      fin2 >> ki;
-      if (librarcont[y].find(ki) == librarcont[y].end()) {
-        cout << "Error: library " << y << " does not contain book " << ki << "." << endl;
+  if (grade_mode) {
+    ifstream fin2(outfile);
+    fin2 >> a;
+    int totscore = 0;
+    int ctime = 0;
+    for (int i = 0; i < a; i++) {
+      fin2 >> y >> k1;
+      if (y >= l) {
+        cout << "Error: invalid library id " << y << "." << endl;
         return 1;
       }
-      if (ctime + (k + 1) / booksperday[y] <= d) {
-        totscore += score[ki];
+      if (check[y]) {
+        cout << "Error: listed library " << y << " twice." << endl;
+        return 1;
+      }
+      check[y] = 1;
+      ctime += signup[y];
+      for (int k = 0; k < k1; k++) {
+        fin2 >> ki;
+        if (librarcont[y].find(ki) == librarcont[y].end()) {
+          cout << "Error: library " << y << " does not contain book " << ki << "." << endl;
+          return 1;
+        }
+        if (ctime + k / booksperday[y] < d && !checkbooks[ki]) {
+          // cerr << "Score for book " << ki << " in library " << y << ": " << score[ki] << "  " << ctime + k / booksperday[y] << " " << ctime << endl;
+          totscore += score[ki];
+          checkbooks[ki] = 1;
+        }
+        // else if (ctime + k / booksperday[y] < d) {
+        //   cerr << "Already scored for book " << ki << " in library " << y << ": " << score[ki] << endl;
+        // }
       }
     }
+    fin2.close();
+    cout << totscore << endl;
   }
-  fin2.close();
-  cout << totscore << endl;
   return 0;
 }
