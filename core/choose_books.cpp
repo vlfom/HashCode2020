@@ -41,7 +41,7 @@ vector <int> get_books(int D, vector <Library> libs) {
     for (int i = 0; i < libs.size(); ++i) {
         sort(libs[i].books.begin(), libs[i].books.end(), &comp);
     }
-    
+
 
     return libs;
 }
