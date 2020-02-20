@@ -74,24 +74,29 @@ int main(int argc, char** argv) {
     cout << "Number of books: " << b << endl;
     cout << "Number of libraries: " << l << endl;
     cout << "Days: " << d << endl;
-    long double avg_signup = 0.0, avg_books = 0.0, avg_score = 0.0;
-    long double dev_signup = 0.0, dev_books = 0.0, dev_score = 0.0;
-    int min_signup = 100001, min_books = 100001, min_score = 100001,
-      max_signup = 0, max_books = 0, max_score = 0;
+    long double avg_signup = 0.0, avg_books = 0.0, avg_score = 0.0, avg_bpd = 0.0;
+    long double dev_signup = 0.0, dev_books = 0.0, dev_score = 0.0, dev_bpd = 0.0;
+    int min_signup = 100001, min_books = 100001, min_score = 100001, min_bpd = 100001,
+      max_signup = 0, max_books = 0, max_score = 0, max_bpd = 0;
     for (int i = 0; i < l; i++) {
       avg_signup += signup[i]; min_signup = min(min_signup, signup[i]);
         max_signup = max(max_signup, signup[i]);
       avg_books += libraries[i].size(); min_books = min(min_books, (int) libraries[i].size());
         max_books = max(max_books, (int) libraries[i].size());
+      avg_bpd += booksperday[i]; min_bpd = min(min_bpd, booksperday[i]);
+        max_bpd = max(max_bpd, booksperday[i]);
     }
     avg_signup /= l;
     avg_books /= l;
+    avg_bpd /= l;
     for (int i = 0; i < l; i++) {
       dev_signup += (signup[i] - avg_signup) * (signup[i] - avg_signup);
       dev_books += (libraries[i].size() - avg_books) * (libraries[i].size() - avg_books);
+      dev_bpd += (booksperday[i] - avg_bpd) * (booksperday[i] - avg_bpd);
     }
     dev_signup /= l; dev_signup = sqrt(dev_signup);
     dev_books /= l; dev_books = sqrt(dev_books);
+    dev_bpd /= l; dev_bpd = sqrt(dev_bpd);
     for (int i = 0; i < b; i++) {
       avg_score += score[i]; min_score = min(min_score, score[i]);
         max_score = max(max_score, score[i]);
@@ -104,6 +109,7 @@ int main(int argc, char** argv) {
     cout << "Average signup time: " << avg_signup << " (min: " << min_signup << ", max: " << max_signup << ", stddev: " << dev_signup << ")" << endl;
     cout << "Average number of books per library: " << avg_books << " (min: " << min_books << ", max: " << max_books << ", stddev: " << dev_books << ")" << endl;
     cout << "Average book score: " << avg_score << " (min: " << min_score << ", max: " << max_score << ", stddev: " << dev_score << ")" << endl;
+    cout << "Average books per day: " << avg_bpd << " (min: " << min_bpd << ", max: " << max_bpd << ", stddev: " << dev_bpd << ")" << endl;
     cout << "avg book score * book number: " << avg_score * b << endl;
   }
   return 0;
